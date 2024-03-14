@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: ${PROVIDER_APPLICATION_NAME:dubbo3x-provider}
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1
+demo:
+  service:
+    version: ${DEMO_VERSION_DUBBO3:0.1.1}
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - zookeeper
+dubbo:
+  registry:
+    address: zookeeper://${ZK_ADDRESS:127.0.0.1}:${ZK_PORT:2181}
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - nacos
+
+dubbo:
+  registry:
+    address: nacos://${NACOS_ADDRESS:127.0.0.1}:${NACOS_PORT:8848}?username=${NACOS_USERNAME:nacos}&password=${NACOS_PASSWORD:nacos}
